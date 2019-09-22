@@ -13,6 +13,13 @@ const Landing = () => {
 
   useEffect(() => {
     Ethereum.getPriceInUSD().then(setPriceInUSD);
+
+    const interval = setInterval(
+      () => Ethereum.getPriceInUSD().then(setPriceInUSD),
+      5000,
+    );
+
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
