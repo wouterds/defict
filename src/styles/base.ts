@@ -53,13 +53,13 @@ export default createGlobalStyle`
   body {
     font-family: "Roboto", -apple-system, "San Francisco", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
     background: #fff;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
 
     input,
     textarea,
     button,
     select {
-      font-size: 1.4rem;
+      font-size: 1.6rem;
     }
   }
 `;
