@@ -1,5 +1,7 @@
 # defict
 
+![IMG](https://i.imgur.com/cm7eMGb.gif)
+
 ## Setup
 
 ```bash
