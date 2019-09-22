@@ -18,6 +18,39 @@ class EthereumService {
   public isValidAddress = (address: string): boolean => {
     return this.web3.utils.isAddress(address);
   };
+
+  /**
+   * Get block by date
+   * Inspired by https://github.com/ethfinex/efx-trustless-vol/blob/master/src/lib/getBlockByTime.js
+   */
+  public getBlockByTime = async (date: Date) => {
+    const ts = date.getTime() / 1000;
+
+    // decreasing average block size will decrease precision and also decrease
+    // the amount of requests made in order to find the closest block
+    const averageBlockTime = 17 * 1.5;
+
+    const currentBlockNumber = await this.web3.eth.getBlockNumber();
+    let block = await this.web3.eth.getBlock(currentBlockNumber);
+
+    let blockNumber = currentBlockNumber;
+
+    while (block.timestamp > ts) {
+      const decreaseBlocks = parseInt(
+        `${(block.timestamp - ts) / averageBlockTime}`,
+      );
+
+      if (decreaseBlocks < 1) {
+        break;
+      }
+
+      blockNumber -= decreaseBlocks;
+
+      block = await this.web3.eth.getBlock(blockNumber);
+    }
+
+    return block;
+  };
 }
 
 export default new EthereumService();
