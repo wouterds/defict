@@ -14,6 +14,10 @@ class EthereumService {
 
     return null;
   };
+
+  public isValidAddress = (address: string): boolean => {
+    return this.web3.utils.isAddress(address);
+  };
 }
 
 export default new EthereumService();
