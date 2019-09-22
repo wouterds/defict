@@ -8,6 +8,7 @@
     "dev": "next ./src"
   },
   "dependencies": {
+    "date-fns": "^2.2.1",
     "next": "^8.1.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
@@ -16,6 +17,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.6.0",
+    "@types/date-fns": "^2.6.0",
     "@types/next": "^8.0.6",
     "@types/react": "^16.9.2",
     "@types/styled-components": "^4.1.19",
