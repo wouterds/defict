@@ -59,8 +59,4 @@ export const Info = styled.div`
     display: inline-block;
     margin-right: 5px;
   }
-
-  ul ul {
-    margin-top: -5px;
-  }
 `;

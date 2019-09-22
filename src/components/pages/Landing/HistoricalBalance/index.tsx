@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { subDays, format, startOfYesterday } from 'date-fns';
+import { subDays, startOfYesterday } from 'date-fns';
 import Ethereum from 'services/ethereum';
+import Chart from './Chart';
 
 interface Props {
   address: string;
@@ -21,7 +22,7 @@ const getDates = (days: number = 30) => {
   return dates;
 };
 
-const CurrentBalance = (props: Props) => {
+const HistoricalBalance = (props: Props) => {
   const { address, days, priceInUSD } = props;
   const [balances, setBalances] = useState<Balances>({});
   const [isLoading, setIsLoading] = useState(false);
@@ -60,26 +61,9 @@ const CurrentBalance = (props: Props) => {
       <label htmlFor="balance">Historical balance{isLoading && ':'}</label>
 
       {isLoading && 'loading..'}
-      {!isLoading && (
-        <ul>
-          <li>
-            {Object.entries(balances).map(([date, balance], index) => {
-              return (
-                <div key={`item-${index}`}>
-                  {`${format(new Date(parseInt(date)), 'MMMM do yyyy')}: ${
-                    balance ? `${balance.substr(0, 5)} Ether` : 'n/a'
-                  }`}
-                  {priceInUSD &&
-                    balance &&
-                    ` ($${(parseInt(balance) * priceInUSD).toFixed(2)})`}
-                </div>
-              );
-            })}
-          </li>
-        </ul>
-      )}
+      {!isLoading && <Chart balances={balances} priceInUSD={priceInUSD} />}
     </>
   );
 };
 
-export default CurrentBalance;
+export default HistoricalBalance;
