@@ -7,6 +7,10 @@ interface Props {
   days: number;
 }
 
+interface Balances {
+  [ts: number]: string | null;
+}
+
 const getDates = (days: number = 30) => {
   const dates = [];
   for (let i = 0; i < days; i++) {
@@ -18,32 +22,32 @@ const getDates = (days: number = 30) => {
 
 const CurrentBalance = (props: Props) => {
   const { address, days } = props;
-  const [balances, setBalances] = useState<{ [ts: number]: string | null }>({});
-  const [fetchingBalanceForDate, setFetchingBalanceForDate] = useState(false);
+  const [balances, setBalances] = useState<Balances>({});
 
   useEffect(() => {
-    if (fetchingBalanceForDate) {
-      return;
-    }
+    const promises = getDates(days).map(date =>
+      (async () => {
+        const balance = await Ethereum.walletBalanceForDate(address, date);
 
-    (async () => {
-      setFetchingBalanceForDate(true);
+        return {
+          ts: date.getTime(),
+          balance,
+        };
+      })(),
+    );
 
-      const alreadyFetchedBalances = Object.keys(balances);
-      const datesToFetch = getDates(days).filter(
-        date => !alreadyFetchedBalances.includes(date.getTime().toString()),
+    Promise.all(promises).then(balances => {
+      setBalances(
+        balances.reduce(
+          (previousValue, item) => ({
+            ...previousValue,
+            [item.ts]: item.balance,
+          }),
+          {},
+        ),
       );
-
-      const date = datesToFetch[0];
-      const balance = await Ethereum.walletBalanceForDate(address, date);
-      setBalances({
-        ...balances,
-        [date.getTime()]: balance,
-      });
-
-      setFetchingBalanceForDate(false);
-    })();
-  }, [address, days, balances, fetchingBalanceForDate]);
+    });
+  }, [address, days]);
 
   return (
     <>
