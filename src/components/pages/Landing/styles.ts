@@ -57,6 +57,6 @@ export const Info = styled.div`
 
   label {
     display: inline-block;
-    margin: 0 5px 0 0;
+    margin-right: 5px;
   }
 `;

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Ethereum from 'services/ethereum';
 import { Container, Header, Content, Info } from './styles';
 import CurrentBalance from './CurrentBalance';
+import HistoricalBalance from './HistoricalBalance';
 
 const Landing = () => {
   const [address, setAddress] = useState(
@@ -36,6 +37,9 @@ const Landing = () => {
             <ul>
               <li>
                 <CurrentBalance address={address} />
+              </li>
+              <li>
+                <HistoricalBalance address={address} days={30} />
               </li>
             </ul>
           </Info>
