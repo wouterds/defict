@@ -41,7 +41,7 @@ const Landing = () => {
           <Info>
             <ul>
               <li>
-                <label htmlFor="balance">Balance:</label>
+                <label htmlFor="balance">Current balance:</label>
                 <span id="balance">
                   {balance ? `${balance.substr(0, 8)} Ether` : '--'}
                 </span>
