@@ -26,7 +26,7 @@ const CurrentBalance = (props: Props) => {
       {isLoading && 'loading..'}
       {!isLoading && (
         <span id="balance">
-          {balance ? `${balance.substr(0, 8)} Ether` : '--'}
+          {balance ? `${balance.substr(0, 5)} Ether` : '--'}
           {priceInUSD &&
             balance &&
             ` ($${(parseInt(balance) * priceInUSD).toFixed(2)})`}

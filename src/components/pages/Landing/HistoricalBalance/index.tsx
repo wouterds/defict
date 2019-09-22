@@ -67,7 +67,7 @@ const CurrentBalance = (props: Props) => {
               return (
                 <div key={`item-${index}`}>
                   {`${format(new Date(parseInt(date)), 'MMMM do yyyy')}: ${
-                    balance ? `${balance.substr(0, 8)} Ether` : 'n/a'
+                    balance ? `${balance.substr(0, 5)} Ether` : 'n/a'
                   }`}
                   {priceInUSD &&
                     balance &&
