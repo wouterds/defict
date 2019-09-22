@@ -23,7 +23,7 @@ class EthereumService {
    * Get block number by date
    * Inspired by https://github.com/ethfinex/efx-trustless-vol/blob/master/src/lib/getBlockByTime.js
    */
-  public getBlockNumberByDate = async (date: Date): Promise<number> => {
+  private getBlockNumberByDate = async (date: Date): Promise<number> => {
     const ts = date.getTime() / 1000;
 
     // decreasing average block size will decrease precision and also decrease
