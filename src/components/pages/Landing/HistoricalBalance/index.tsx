@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { startOfToday, subDays, format } from 'date-fns';
+import { subDays, format, startOfYesterday } from 'date-fns';
 import Ethereum from 'services/ethereum';
 
 interface Props {
@@ -15,7 +15,7 @@ interface Balances {
 const getDates = (days: number = 30) => {
   const dates = [];
   for (let i = 0; i < days; i++) {
-    dates.push(subDays(startOfToday(), i));
+    dates.push(subDays(startOfYesterday(), i));
   }
 
   return dates;
