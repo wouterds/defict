@@ -3,7 +3,9 @@ import Ethereum from 'services/ethereum';
 import { Container, Header, Content, Info } from './styles';
 
 const Landing = () => {
-  const [address, setAddress] = useState('');
+  const [address, setAddress] = useState(
+    `${process.env.ETHEREUM_WALLET_ADDRESS}`,
+  );
   const [isValidAddress, setIsValidAddress] = useState(false);
   const [balance, setBalance] = useState<string | null>(null);
 
