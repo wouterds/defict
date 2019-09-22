@@ -8,17 +8,26 @@ interface Props {
 const CurrentBalance = (props: Props) => {
   const { address } = props;
   const [balance, setBalance] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    Ethereum.walletBalance(address).then(setBalance);
+    setIsLoading(true);
+    Ethereum.walletBalance(address).then(balance => {
+      setBalance(balance);
+      setIsLoading(false);
+    });
   }, [address]);
 
   return (
     <>
       <label htmlFor="balance">Current balance:</label>
-      <span id="balance">
-        {balance ? `${balance.substr(0, 8)} Ether` : '--'}
-      </span>
+
+      {isLoading && 'loading..'}
+      {!isLoading && (
+        <span id="balance">
+          {balance ? `${balance.substr(0, 8)} Ether` : '--'}
+        </span>
+      )}
     </>
   );
 };

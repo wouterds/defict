@@ -23,8 +23,11 @@ const getDates = (days: number = 30) => {
 const CurrentBalance = (props: Props) => {
   const { address, days } = props;
   const [balances, setBalances] = useState<Balances>({});
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
+
     const promises = getDates(days).map(date =>
       (async () => {
         const balance = await Ethereum.walletBalanceForDate(address, date);
@@ -46,26 +49,31 @@ const CurrentBalance = (props: Props) => {
           {},
         ),
       );
+
+      setIsLoading(false);
     });
   }, [address, days]);
 
   return (
     <>
-      <label htmlFor="balance">Historical balance</label>
+      <label htmlFor="balance">Historical balance{isLoading && ':'}</label>
 
-      <ul>
-        <li>
-          {Object.entries(balances).map(([date, balance], index) => {
-            return (
-              <div key={`item-${index}`}>
-                {`${format(new Date(parseInt(date)), 'MMMM do yyyy')}: ${
-                  balance ? `${balance} Ether` : 'n/a'
-                }`}
-              </div>
-            );
-          })}
-        </li>
-      </ul>
+      {isLoading && 'loading..'}
+      {!isLoading && (
+        <ul>
+          <li>
+            {Object.entries(balances).map(([date, balance], index) => {
+              return (
+                <div key={`item-${index}`}>
+                  {`${format(new Date(parseInt(date)), 'MMMM do yyyy')}: ${
+                    balance ? `${balance.substr(0, 8)} Ether` : 'n/a'
+                  }`}
+                </div>
+              );
+            })}
+          </li>
+        </ul>
+      )}
     </>
   );
 };
