@@ -27,7 +27,10 @@ const Landing = () => {
             id="address"
             type="text"
             placeholder="Enter ethereum address"
-            onChange={(e: any) => setAddress(e.target.value)}
+            onChange={(e: any) => {
+              setIsValidAddress(false);
+              setAddress(e.target.value);
+            }}
             value={address}
           />
         </form>
