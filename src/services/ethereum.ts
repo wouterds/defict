@@ -15,6 +15,20 @@ class EthereumService {
     return null;
   };
 
+  public walletBalanceForDate = async (
+    address: string,
+    date: Date,
+  ): Promise<string | null> => {
+    const block = await this.getBlockNumberByDate(date);
+    const balance = await this.web3.eth.getBalance(address, block);
+
+    if (balance) {
+      return this.web3.utils.fromWei(balance, 'ether');
+    }
+
+    return null;
+  };
+
   public isValidAddress = (address: string): boolean => {
     return this.web3.utils.isAddress(address);
   };
