@@ -1,23 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Ethereum from 'services/ethereum';
 import { Container, Header, Content, Info } from './styles';
+import CurrentBalance from './CurrentBalance';
 
 const Landing = () => {
   const [address, setAddress] = useState(
     `${process.env.ETHEREUM_WALLET_ADDRESS}`,
   );
   const [isValidAddress, setIsValidAddress] = useState(false);
-  const [balance, setBalance] = useState<string | null>(null);
 
   useEffect(() => {
     setIsValidAddress(Ethereum.isValidAddress(address));
   }, [address]);
-
-  useEffect(() => {
-    if (isValidAddress) {
-      Ethereum.walletBalance(address).then(setBalance);
-    }
-  }, [isValidAddress, address]);
 
   return (
     <Container>
@@ -41,10 +35,7 @@ const Landing = () => {
           <Info>
             <ul>
               <li>
-                <label htmlFor="balance">Current balance:</label>
-                <span id="balance">
-                  {balance ? `${balance.substr(0, 8)} Ether` : '--'}
-                </span>
+                <CurrentBalance address={address} />
               </li>
             </ul>
           </Info>
