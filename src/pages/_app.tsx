@@ -10,7 +10,7 @@ class App extends NextApp {
     return (
       <>
         <Head>
-          <title>DeFiCT</title>
+          <title>Ethereum Wallet Info</title>
         </Head>
 
         <BaseCSS />
