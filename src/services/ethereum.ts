@@ -50,6 +50,19 @@ class EthereumService {
     return this.web3.utils.isAddress(address);
   };
 
+  public getPriceInUSD = async (): Promise<number | null> => {
+    try {
+      const response = await fetch(
+        'https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd',
+      );
+      const data = await response.json();
+
+      return parseFloat(data.ethereum.usd);
+    } catch (e) {
+      return null;
+    }
+  };
+
   /**
    * Get block number by date
    * Inspired by https://github.com/ethfinex/efx-trustless-vol/blob/master/src/lib/getBlockByTime.js
