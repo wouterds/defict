@@ -20,10 +20,15 @@ class EthereumService {
     date: Date,
   ): Promise<string | null> => {
     const block = await this.getBlockNumberByDate(date);
-    const balance = await this.web3.eth.getBalance(address, block);
 
-    if (balance) {
-      return this.web3.utils.fromWei(balance, 'ether');
+    try {
+      const balance = await this.web3.eth.getBalance(address, block);
+
+      if (balance) {
+        return this.web3.utils.fromWei(balance, 'ether');
+      }
+    } catch (e) {
+      return null;
     }
 
     return null;

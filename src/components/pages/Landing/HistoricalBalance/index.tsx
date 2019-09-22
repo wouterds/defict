@@ -33,20 +33,13 @@ const CurrentBalance = (props: Props) => {
       const datesToFetch = getDates(days).filter(
         date => !alreadyFetchedBalances.includes(date.getTime().toString()),
       );
-      const date = datesToFetch[0];
 
-      try {
-        const balance = await Ethereum.walletBalanceForDate(address, date);
-        setBalances({
-          ...balances,
-          [date.getTime()]: balance,
-        });
-      } catch (e) {
-        setBalances({
-          ...balances,
-          [date.getTime()]: null,
-        });
-      }
+      const date = datesToFetch[0];
+      const balance = await Ethereum.walletBalanceForDate(address, date);
+      setBalances({
+        ...balances,
+        [date.getTime()]: balance,
+      });
 
       setFetchingBalanceForDate(false);
     })();
