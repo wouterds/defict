@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Ethereum from 'services/ethereum';
 
-const Index = () => {
+const Landing = () => {
   const [address, setAddress] = useState('');
   const [balance, setBalance] = useState<string | null>(null);
 
@@ -25,4 +25,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Landing;
