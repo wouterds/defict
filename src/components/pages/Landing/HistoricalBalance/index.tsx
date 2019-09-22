@@ -5,6 +5,7 @@ import Ethereum from 'services/ethereum';
 interface Props {
   address: string;
   days: number;
+  priceInUSD: number | null;
 }
 
 interface Balances {
@@ -21,7 +22,7 @@ const getDates = (days: number = 30) => {
 };
 
 const CurrentBalance = (props: Props) => {
-  const { address, days } = props;
+  const { address, days, priceInUSD } = props;
   const [balances, setBalances] = useState<Balances>({});
   const [isLoading, setIsLoading] = useState(false);
 
@@ -68,6 +69,9 @@ const CurrentBalance = (props: Props) => {
                   {`${format(new Date(parseInt(date)), 'MMMM do yyyy')}: ${
                     balance ? `${balance.substr(0, 8)} Ether` : 'n/a'
                   }`}
+                  {priceInUSD &&
+                    balance &&
+                    ` ($${(parseInt(balance) * priceInUSD).toFixed(2)})`}
                 </div>
               );
             })}

@@ -3,10 +3,11 @@ import Ethereum from 'services/ethereum';
 
 interface Props {
   address: string;
+  priceInUSD: number | null;
 }
 
 const CurrentBalance = (props: Props) => {
-  const { address } = props;
+  const { address, priceInUSD } = props;
   const [balance, setBalance] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -26,6 +27,9 @@ const CurrentBalance = (props: Props) => {
       {!isLoading && (
         <span id="balance">
           {balance ? `${balance.substr(0, 8)} Ether` : '--'}
+          {priceInUSD &&
+            balance &&
+            ` ($${(parseInt(balance) * priceInUSD).toFixed(2)})`}
         </span>
       )}
     </>

@@ -9,6 +9,11 @@ const Landing = () => {
     `${process.env.ETHEREUM_WALLET_ADDRESS}`,
   );
   const [isValidAddress, setIsValidAddress] = useState(false);
+  const [priceInUSD, setPriceInUSD] = useState<number | null>(null);
+
+  useEffect(() => {
+    Ethereum.getPriceInUSD().then(setPriceInUSD);
+  }, []);
 
   useEffect(() => {
     setIsValidAddress(Ethereum.isValidAddress(address));
@@ -39,10 +44,14 @@ const Landing = () => {
           <Info>
             <ul>
               <li>
-                <CurrentBalance address={address} />
+                <CurrentBalance address={address} priceInUSD={priceInUSD} />
               </li>
               <li>
-                <HistoricalBalance address={address} days={30} />
+                <HistoricalBalance
+                  address={address}
+                  days={30}
+                  priceInUSD={priceInUSD}
+                />
               </li>
             </ul>
           </Info>
