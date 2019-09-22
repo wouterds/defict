@@ -46,7 +46,7 @@ export default createGlobalStyle`
   }
 
   #__next {
-    height: 100%;
+    min-height: 100%;
     padding: 50px;
   }
 
@@ -54,6 +54,7 @@ export default createGlobalStyle`
     font-family: "Roboto", -apple-system, "San Francisco", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
     background: #fff;
     font-size: 1.6rem;
+    line-height: 1.6;
 
     input,
     textarea,

@@ -8,7 +8,7 @@ export const Container = styled.div`
 export const Header = styled.div`
   background: #111;
   color: #fff;
-  padding-top: 50px;
+  padding-top: 35px;
   padding-left: 50px;
   height: 160px;
   border-top-left-radius: 5px;
@@ -25,7 +25,7 @@ export const Header = styled.div`
   h2 {
     opacity: 0.25;
     font-size: 1.2em;
-    margin-top: 5px;
+    font-weight: 500;
   }
 `;
 
@@ -58,5 +58,9 @@ export const Info = styled.div`
   label {
     display: inline-block;
     margin-right: 5px;
+  }
+
+  ul ul {
+    margin-top: -5px;
   }
 `;
