@@ -5,6 +5,18 @@ class EthereumService {
     `https://mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
   );
 
+  constructor() {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    if (typeof (window as any).web3 === 'undefined') {
+      return;
+    }
+
+    this.web3 = new Web3((window as any).web3.currentProvider);
+  }
+
   public walletBalance = async (address: string): Promise<string | null> => {
     const balance = await this.web3.eth.getBalance(address);
 
