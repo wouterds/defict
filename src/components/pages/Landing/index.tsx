@@ -15,7 +15,7 @@ const Landing = () => {
     if (isValidAddress) {
       Ethereum.walletBalance(address).then(setBalance);
     }
-  }, [isValidAddress]);
+  }, [isValidAddress, address]);
 
   return (
     <Container>
@@ -31,6 +31,7 @@ const Landing = () => {
             type="text"
             placeholder="Enter ethereum address"
             onChange={(e: any) => setAddress(e.target.value)}
+            value={address}
           />
         </form>
 
